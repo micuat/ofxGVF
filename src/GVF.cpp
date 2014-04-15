@@ -18,7 +18,7 @@
 ///////////////////////////////////////////////////////////////////////
 
 #include "GVF.h"
-#include "maxcpp6.h"
+//#include "maxcpp6.h"
 #include <string.h>
 #include <stdio.h>
 #include <iostream>
@@ -149,7 +149,7 @@ void GVF::learn(){
     
     if (numTemplates >= 0){
         
-        post("dim %i ", R_single[0][0].size());
+        //post("dim %i ", R_single[0][0].size());
 
         featVariances.clear();
         
@@ -425,7 +425,7 @@ void GVF::spreadParticles(GVFInitialSpreadingParameters _spreadingParameters){
     int scalingCoefficients  = _spreadingParameters.scaleInitialSpreading.size();
     int numberRotationAngles = _spreadingParameters.rotationInitialSpreading.size();
     
-    post("scale %i rotation %i", scalingCoefficients, numberRotationAngles);
+    //post("scale %i rotation %i", scalingCoefficients, numberRotationAngles);
     
     
     // Spread particles using a uniform distribution
@@ -1097,7 +1097,7 @@ void GVF::setVarianceCoefficents(GVFVarianceCoefficents _coefficients){
     // change the variance coefficients only if some gestures are learned
     if (numTemplates>=0) {
         
-        post("redifining variance coefficients");
+        //post("redifining variance coefficients");
         
         featVariances.clear();
         
