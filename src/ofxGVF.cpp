@@ -1394,6 +1394,62 @@ string ofxGVF::getStateAsString(ofxGVFState state){
 }
 
 
+#ifdef OF_OFXGVF
+void ofxGVF::drawParticles(ofxGVFGesture &currentGesture, float x, float y) {
+	ofPushMatrix();
+	ofPushStyle();
+	
+	ofTranslate(x, y);
+	
+	vector< vector<float> > pp = getParticlesPositions();
+    int ppSize = pp.size();
+    float scale = 1;
+    
+    if(ppSize > 0 && currentGesture.getNumberOfTemplates() > 0){
+        // as the colors show, the vector returned by getG()
+        // does not seem to be in synch with the information returned by particlesPositions
+        vector<int> gestureIndex = getG();
+        vector<float> weights = getW();
+        
+        ofFill();
+        
+        float weightAverage = getMeanVec(weights);
+        
+        ofPoint offset = ofPoint(currentGesture.getTemplateNormal()[0][0] - pp[0][0], currentGesture.getTemplateNormal()[0][1] - pp[0][1]);
+        
+        for(int i = 0; i < ppSize; i++){
+            
+            // each particle position is retrieved
+            ofPoint point(pp[i][0], pp[i][1]);
+            
+            // and then scaled and translated in order to be drawn
+            //float x = ((point.x)) * (currentGesture.getMaxRange()[0] - currentGesture.getMinRange()[0]);
+            //float y = ((point.y)) * (currentGesture.getMaxRange()[1] - currentGesture.getMinRange()[1]);
+            float x = point.x;
+            float y = point.y;
+            
+            // the weight of the particle is normalised
+            // and then used as the radius of the circle representing the particle
+            float radius = weights[i]/weightAverage;
+            ofColor c = ofColor(127, 0, 0);
+            
+            c.setBrightness(198);
+            ofSetColor(c);
+            ofPushMatrix();
+            ofTranslate(currentGesture.getInitialObservationRaw()[0], currentGesture.getInitialObservationRaw()[1]);
+            //ofCircle(x, y, radius);
+            ofCircle(x, y, 1); // MATT something wrong with radius above
+            ofPopMatrix();
+            
+        }
+    }
+	
+	ofPopStyle();
+	ofPopMatrix();
+}
+#endif
+
+
 ///////// ROTATION MATRIX
 
 vector<vector<float> > return_RotationMatrix_3d(float phi, float theta, float psi)
@@ -1416,4 +1472,3 @@ vector<vector<float> > return_RotationMatrix_3d(float phi, float theta, float ps
     return M;
     
 }
-

@@ -181,7 +181,9 @@ public:
     
     string getStateAsString(ofxGVFState state);
 	
-
+#ifdef OF_OFXGVF
+	void drawParticles(ofxGVFGesture&, float x = 0, float y = 0);
+#endif
     
 private:
     

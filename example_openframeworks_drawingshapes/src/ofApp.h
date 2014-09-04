@@ -26,9 +26,6 @@ class ofApp : public ofBaseApp{
         ofxGVFParameters    parameters;
         ofxGVFOutcomes      outcomes;
     
-        float initX, initY;
-
-    float inputX, inputY;
     bool performingLearning;
     bool performingFollowing;
 	
